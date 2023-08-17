@@ -1,0 +1,128 @@
+.card {
+  box-sizing: border-box;
+}
+
+.card * {
+  box-sizing: border-box;
+}
+
+.slidein {
+  animation-name: SlideIn;
+  animation-duration: 0.3s;
+}
+
+.slideup {
+  animation-name: SlideUp;
+  animation-duration: 0.3s;
+}
+
+.menu-btn {
+  position: absolute;
+  top: 18px;
+  left: 13px;
+  display: flex;
+  height: 0px;
+  width: 0px;
+  z-index: 90;
+}
+.menu-btn span {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 15px;
+  border-radius: 3px;
+  position: absolute;
+}
+
+.fadeIn{
+  animation-name:fadeInAnime;
+  animation-duration:0.3s;
+  animation-fill-mode:forwards;
+  opacity:0;
+}
+
+@keyframes fadeInAnime{
+  from {
+    opacity: 0;
+    transform: scale(0.0,0.0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.0,1.0);
+  }
+}
+
+.fadeOut{
+  animation-name:fadeOutAnime;
+  animation-duration:0.3s;
+  animation-fill-mode:forwards;
+  opacity:0;
+}
+
+@keyframes fadeOutAnime{
+  from {
+    opacity: 1;
+    transform: scale(1.0,1.0);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.0,0.0);
+  }
+}
+
+.fadeInit{
+  opacity: 0;
+  transform: scale(0.0,0.0);
+}
+
+@keyframes SlideIn {
+  0% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes SlideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.round_btn {
+  display: block;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  /* border: 2px solid #f33; */ /* 枠の調整 */
+  border-radius: 50%;  /* 丸みの度合い */
+  background: #f55; /* ボタンの背景色 */
+}
+ 
+.round_btn::before, .round_btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px; /* 棒の幅（太さ） */
+  height: 10px; /* 棒の高さ */
+  background: #fff; /* バツ印の色 */
+}
+ 
+.round_btn::before {
+  transform: translate(-50%,-50%) rotate(45deg);
+}
+ 
+.round_btn::after {
+  transform: translate(-50%,-50%) rotate(-45deg);
+}

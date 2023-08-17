@@ -1,0 +1,27 @@
+.menu-btn {
+    position: absolute;
+    top: 13px;
+    left: 9px;
+    display: flex;
+    height: 0px;
+    width: 0px;
+    z-index: 90;
+}
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 13px;
+    border-radius: 3px;
+    background-color: #F00;
+    position: absolute;
+}
+.menu-btn span:before {
+    bottom: 4px;
+}
+.menu-btn span:after {
+    top: 4px;
+}
+

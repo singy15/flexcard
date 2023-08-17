@@ -1,0 +1,50 @@
+
+body {
+  background-color: #000;
+}
+
+.card textarea:hover {
+  /*animation-name: Concentration;*/
+  /*animation-duration: 0.5s;*/
+  /*animation-fill-mode:forwards;*/
+  /*outline: double 4px rgba(255,255,255,1.0) !important;*/
+}
+
+@keyframes Concentration {
+  from {
+    /* opacity: 1; */
+    /* transform: scale(1.0,1.0); */
+    outline: double 4px rgba(255,255,255,0.0) !important;
+  }
+
+  to {
+    /* opacity: 0; */
+    /* transform: scale(0.0,0.0); */
+    outline: double 4px rgba(255,255,255,1.0) !important;
+  }
+}
+
+
+/*
+.card:before {
+content:"";
+position:absolute;
+top:5;
+left:3;
+width:20px; 
+height:15px; 
+border-left:#aaa 1px solid; 
+border-top:#aaa 1px solid; 
+}
+.card:after {
+content:"";
+position:absolute;
+bottom:3;
+right:3;
+width:20px; 
+height:15px; 
+border-right:#aaa 1px solid; 
+border-bottom:#aaa 1px solid; 
+}
+*/
+

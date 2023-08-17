@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <link href="./style.css" rel="stylesheet"/> 
+    <link href="./card.css" rel="stylesheet"/> 
+    <!-- <link href="./theme-default.css" rel="stylesheet"/>  -->
+    <link href="./theme-dark.css" rel="stylesheet"/>
+  </head>
+  <body ondblclick="dblClick(event)" style="overflow:hidden">
+    <div id="app" style="position:absolute">
+      <!--
+          width: `${calcScreenSize().w}px`, 
+          height: `${calcScreenSize().h}px`, 
+      -->
+      <div ref="screen" class="screen" :style="{
+          position: 'fixed', 
+          backgroundColor: `#000`,
+          top: `0px`,
+          left: `0px`,
+          bottom: `0px`,
+          right: `0px`,
+          }"
+          @mousemove="dragScroll($event)"
+          @contextmenu.prevent
+          @mousewheel="mousewheel($event)">
+      </div>
+      <card v-for="card in cards" :key="card" :init-info="card" 
+          @updated="cardUpdated"
+          @deleted="cardDeleted"
+          :offsetx="scrollX"
+          :offsety="scrollY"
+          :zoom="zoom"
+          ref="card"></card>
+      <div v-show="debug"
+           :style="{
+                    position:`absolute`,
+                    top:`${-5 - scrollY}px`,
+                    left:`${-5 - scrollX}px`,
+                    width:`10px`,
+                    height:`10px`,
+                    backgroundColor:`#F00`,
+                    borderRadius: `5px`,
+                    zIndex:`9999`,
+                    }"></div>
+    </div>
+  </body>
+  <script src="./vue.global.js"></script>
+  <script src="./card.js"></script>
+  <script src="./script.js"></script>
+</html>
