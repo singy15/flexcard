@@ -24,7 +24,9 @@ var app = Vue.createApp({
     },
     cardDeleted(info) {
       this.cards = this.cards.filter(x => x.id !== info.id);
-      this.saveToLocalStorage();
+      setTimeout(() => {
+        this.saveToLocalStorage();
+      }, 500);
     },
     dblClick(event) {
       this.addCard(event.clientX, event.clientY);
