@@ -83,20 +83,17 @@ let defaultTheme = {
 };
 
 let darkTheme = {
-  style(card,offsetx,offsety,zoom) {
+  style(card) {
     return {
       width: `auto`,
       height: `auto`,
-      top: `${(card.info.y - offsety) * zoom}px`,
-      left: `${(card.info.x - offsetx) * zoom}px`,
-      transformOrigin: `top left`,
-      transform: `scale(${zoom})`,
+      top: `${card.info.y}px`,
+      left: `${card.info.x}px`,
       position: `absolute`,
       // boxShadow: `rgba(0,0,0,0.3) 0px 6px 12px 0px`,
       padding: `10px`,
       // margin: `10px`,
       // backgroundColor: `rgba(${card.color.r},${card.color.g},${card.color.b},1.0)`,
-      // backgroundColor: `#00f`,
       cursor: `move`,
     };
   },
@@ -161,10 +158,7 @@ let darkTheme = {
 
 let Card = {
   props: {
-    initInfo: Object,
-    offsetx: Number,
-    offsety: Number,
-    zoom: Number,
+    initInfo: Object
   },
   data() {
     let data = mergeDeeply(
@@ -183,7 +177,7 @@ let Card = {
         menuTimeout: null,
         // styler: defaultTheme,
         styler: darkTheme,
-        debug: false,
+        debug: true,
       },
       { info: JSON.parse(JSON.stringify(this.initInfo)) }
     );
@@ -278,15 +272,60 @@ let Card = {
     del() {
       this.$emit("deleted", this.info);
     },
-    debugStyle() {
+    style() {
+      return {
+        width: `auto`,
+        height: `auto`,
+        top: `${this.info.y}px`,
+        left: `${this.info.x}px`,
+        position: `absolute`,
+        // boxShadow: `rgba(0,0,0,0.3) 0px 6px 12px 0px`,
+        padding: `10px`,
+        // margin: `10px`,
+        // backgroundColor: `rgba(${this.color.r},${this.color.g},${this.color.b},1.0)`,
+        cursor: `move`,
+      };
+    },
+    styleTextarea() {
+      return {
+        width: `${this.info.w}px`,
+        height: `${this.info.h}px`,
+        outline: `none`,
+        border: `none`,
+        position: `relative`,
+        padding: `10px`,
+        boxShadow: `rgba(0,0,0,0.3) 0px 6px 12px 0px`,
+        backgroundColor: `rgba(${this.info.color.r},${this.info.color.g},${this.info.color.b},1.0)`,
+        borderRadius: `2px`,
+        fontFamily: `system`,
+      };
+    },
+    styleMenu() {
       return {
         position: `absolute`,
-        top: `10px`,
-        left: `10px`,
-        color: `#fff`,
-        zIndex: `9999`
+        left: `-20px`,
+        top: `-20px`,
+        width: `40px`,
+        height: `40px`,
+        borderRadius: `20px`,
+        // backgroundColor: `#78cd96`,
+        backgroundColor: `rgba(${this.info.color.r},${this.info.color.g},${this.info.color.b},1.0)`,
+        zIndex: `9999`,
+        cursor: `pointer`,
       };
-    }
+    },
+    styleMenuDelete() {
+      return {
+        position: `absolute`,
+        right: `0px`,
+        top: `0px`,
+        width: `20px`,
+        height: `20px`,
+        // backgroundColor: `#78cd96`,
+        zIndex: `9999`,
+        cursor: `pointer`,
+      };
+    },
   },
   watch: {
     "info.text": function(val){
@@ -312,8 +351,7 @@ let Card = {
   },
   template: 
 `
-<div v-bind:style="styler.style(this,this.offsetx,this.offsety,zoom)" class="card" draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event)" ref="card">
-<div v-show="debug" :style="debugStyle()">{{ Math.floor((info.x - offsetx) * zoom) }},{{ Math.floor((info.y - offsety) * zoom) }}</div>
+<div v-bind:style="styler.style(this)" class="card" draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event)" ref="card">
 <div :style="styler.styleMenu(this)" v-show="!dragState" ref="menu" class="fadeInit" @mouseout="mouseout($event)" @mouseover="mouseover($event)">
   <div class="menu-btn">
     <span :style="styler.styleMenuIcon(this, { bottom: '2px'})">

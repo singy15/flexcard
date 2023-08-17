@@ -8,11 +8,7 @@ var app = Vue.createApp({
       cards: [
         { id: 1, x: 100, y: 50, w: 200, h: 150, color: {r: 255, g: 255, b: 255}, text: "foo" },
         { id: 2, x: 100, y: 250, w: 200, h: 150, color: {r: 255, g: 255, b: 255}, text: "bar" }
-      ],
-      scrollX: 0,
-      scrollY: 0,
-      zoom: 1.0,
-      debug: false
+      ]
     };
   },
   methods: {
@@ -47,10 +43,8 @@ var app = Vue.createApp({
     },
     dragScroll(event) {
       if(event.buttons === 2) {
-        // document.body.scrollLeft -= event.movementX;
-        // document.body.scrollTop -= event.movementY;
-        this.scrollX -= event.movementX;
-        this.scrollY -= event.movementY;
+        document.body.scrollLeft -= event.movementX;
+        document.body.scrollTop -= event.movementY;
       }
     },
     // dragScrollStart(event) {
@@ -86,9 +80,6 @@ var app = Vue.createApp({
         h: height + 40,
       };
     },
-    mousewheel(event) {
-      this.zoom += event.deltaY * 0.001;
-    }
   },
   mounted() {
     if(localStorage.getItem("/cards")) {
