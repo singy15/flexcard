@@ -126,3 +126,60 @@
 .round_btn::after {
   transform: translate(-50%,-50%) rotate(-45deg);
 }
+
+
+.round_btn_up {
+  display: block;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  /* border: 2px solid #f33; */ /* 枠の調整 */
+  border-radius: 50%;  /* 丸みの度合い */
+  background: #0a0; /* ボタンの背景色 */
+}
+ 
+.round_btn_up::before, .round_btn_up::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px; /* 棒の幅（太さ） */
+  height: 7px; /* 棒の高さ */
+  background: #fff; /* バツ印の色 */
+}
+ 
+.round_btn_up::before {
+  transform: translate(-100%,-50%) rotate(45deg);
+}
+ 
+.round_btn_up::after {
+  transform: translate(-0%,-50%) rotate(-45deg);
+}
+
+.round_btn_down {
+  display: block;
+  position: relative;
+  width: 10px;
+  height: 10px;
+  /* border: 2px solid #f33; */ /* 枠の調整 */
+  border-radius: 50%;  /* 丸みの度合い */
+  background: #0a0; /* ボタンの背景色 */
+}
+ 
+.round_btn_down::before, .round_btn_down::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px; /* 棒の幅（太さ） */
+  height: 7px; /* 棒の高さ */
+  background: #fff; /* バツ印の色 */
+}
+ 
+.round_btn_down::before {
+  transform: translate(-0%,-50%) rotate(45deg);
+}
+ 
+.round_btn_down::after {
+  transform: translate(-100%,-50%) rotate(-45deg);
+}

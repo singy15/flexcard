@@ -38,7 +38,8 @@ var app = Vue.createApp({
         w: 200,
         h: 100,
         color: {r: 255, g: 255, b: 255},
-        text: ""
+        text: "",
+        z: id,
       });
     },
     dragScroll(event) {
@@ -46,6 +47,16 @@ var app = Vue.createApp({
         document.body.scrollLeft -= event.movementX;
         document.body.scrollTop -= event.movementY;
       }
+    },
+    movez(param) {
+      let cards = this.$refs.card.map(x => { return { z: x.getData().z, data: x.getData(), target: x }; });
+      cards.filter(x => x.target == param.target)[0].z += (9000 * param.direction);
+      cards.sort((a,b) => {
+        return (a.z < b.z)? (-1) : ((a.z > b.z)? 1 : 0);
+      });
+      cards.forEach((x,i) => {
+        x.target.setZ(i);
+      });
     },
     // dragScrollStart(event) {
     //   this.dragScrolling = true;
@@ -76,8 +87,8 @@ var app = Vue.createApp({
       }
 
       return {
-        w: width + 40,
-        h: height + 40,
+        w: width + 1000,
+        h: height + 1000,
       };
     },
   },

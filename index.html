@@ -19,6 +19,7 @@
         <card v-for="card in cards" :key="card" :init-info="card" 
             @updated="cardUpdated"
             @deleted="cardDeleted"
+            @movez="movez"
             ref="card"></card>
       </div>
     </div>

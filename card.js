@@ -95,6 +95,7 @@ let darkTheme = {
       // margin: `10px`,
       // backgroundColor: `rgba(${card.color.r},${card.color.g},${card.color.b},1.0)`,
       cursor: `move`,
+      zIndex: `${card.info.z}`,
     };
   },
   styleTextarea(card) {
@@ -149,6 +150,30 @@ let darkTheme = {
       cursor: `pointer`,
     };
   },
+  styleMenuFwd(card) {
+    return {
+      position: `absolute`,
+      right: `44px`,
+      top: `0px`,
+      width: `20px`,
+      height: `20px`,
+      // backgroundColor: `#78cd96`,
+      zIndex: `9999`,
+      cursor: `pointer`,
+    };
+  },
+  styleMenuBwd(card) {
+    return {
+      position: `absolute`,
+      right: `22px`,
+      top: `0px`,
+      width: `20px`,
+      height: `20px`,
+      // backgroundColor: `#78cd96`,
+      zIndex: `9999`,
+      cursor: `pointer`,
+    };
+  },
   styleMenuIcon(card,opt) {
     return Object.assign({
       backgroundColor: `rgba(${card.info.textColor.r},${card.info.textColor.g},${card.info.textColor.b},0.5)`,
@@ -170,7 +195,9 @@ let Card = {
           h: 100,
           color: { r:255, g:255, b:255 },
           textColor: { r:0, g:0, b:0  },
-          text: ""
+          text: "",
+          z: 1,
+          softwareVersion: 2
         },
         dragState: null,
         focused: false,
@@ -189,8 +216,14 @@ let Card = {
       if(this.info.x <= 0) { this.info.x = 5; }
       if(this.info.y <= 0) { this.info.y = 5; }
     },
+    setZ(z) {
+      this.info.z = z;
+    },
     echo(msg) {
       console.log(msg);
+    },
+    setData(data) {
+      this.info = data;
     },
     dragstart(event) {
       let x = event.clientX;
@@ -231,6 +264,10 @@ let Card = {
       setTimeout(() => {
         this.$refs.menuDel.classList.remove("fadeOut");
         this.$refs.menuDel.classList.add("fadeIn");
+        this.$refs.menuFwd.classList.remove("fadeOut");
+        this.$refs.menuFwd.classList.add("fadeIn");
+        this.$refs.menuBwd.classList.remove("fadeOut");
+        this.$refs.menuBwd.classList.add("fadeIn");
       },100);
       if(this.menuTimeout) {
         clearTimeout(this.menuTimeout);
@@ -247,6 +284,10 @@ let Card = {
         // this.$refs.menu.classList.add("fadeOut");
         this.$refs.menuDel.classList.remove("fadeIn");
         this.$refs.menuDel.classList.add("fadeOut");
+        this.$refs.menuFwd.classList.remove("fadeIn");
+        this.$refs.menuFwd.classList.add("fadeOut");
+        this.$refs.menuBwd.classList.remove("fadeIn");
+        this.$refs.menuBwd.classList.add("fadeOut");
         this.menuTimeout = null;
       }, 500);
     },
@@ -326,6 +367,9 @@ let Card = {
         cursor: `pointer`,
       };
     },
+    fwd(direction) {
+      this.$emit("movez",{ direction: direction, data: this.info, target: this });
+    }
   },
   watch: {
     "info.text": function(val){
@@ -365,6 +409,14 @@ let Card = {
 <div :style="styler.styleMenuDelete(this)" v-show="!dragState" ref="menuDel" class="fadeInit round_btn" 
     @mouseout="mouseout($event)" @mouseover="mouseover($event)"
     @click="del()">
+</div>
+<div :style="styler.styleMenuFwd(this)" v-show="!dragState" ref="menuFwd" class="fadeInit round_btn_up" 
+    @mouseout="mouseout($event)" @mouseover="mouseover($event)"
+    @click="fwd(1)">
+</div>
+<div :style="styler.styleMenuBwd(this)" v-show="!dragState" ref="menuBwd" class="fadeInit round_btn_down" 
+    @mouseout="mouseout($event)" @mouseover="mouseover($event)"
+    @click="fwd(-1)">
 </div>
 <textarea name="'card-' + (card.id).toString()" ref="textarea" v-model="info.text" spellcheck="false" @mouseout="mouseout($event)" @mouseover="mouseover($event)" 
     :style="styler.styleTextarea(this)" draggable="true" @dragstart.stop.prevent></textarea>
