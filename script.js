@@ -35,8 +35,8 @@ var app = Vue.createApp({
       let id = Math.max(...app.cards.map(x => x.id)) + 1;
       this.cards.push({
         id: id,
-        x: x - 200/2,
-        y: y - 100/2,
+        x: x - 200/2 + document.body.scrollLeft,
+        y: y - 100/2 + document.body.scrollTop,
         w: 200,
         h: 100,
         color: {r: 255, g: 255, b: 255},
