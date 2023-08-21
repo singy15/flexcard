@@ -6,9 +6,9 @@ var app = Vue.createApp({
   data() {
     return {
       cards: [
-        { id: 1, x: 100, y: 50, w: 200, h: 150, color: {r: 255, g: 255, b: 255}, text: "foo" },
-        { id: 2, x: 100, y: 250, w: 200, h: 150, color: {r: 255, g: 255, b: 255}, text: "bar" }
-      ]
+        { id: 1, x: 100, y: 50, w: 200, h: 150, color: {r: 255, g: 255, b: 255}, text: "this is example" },
+      ],
+      debug: true
     };
   },
   methods: {
@@ -24,15 +24,15 @@ var app = Vue.createApp({
     },
     cardDeleted(info) {
       this.cards = this.cards.filter(x => x.id !== info.id);
-      setTimeout(() => {
-        this.saveToLocalStorage();
-      }, 500);
+      // setTimeout(() => {
+      //   this.saveToLocalStorage();
+      // }, 500);
     },
     dblClick(event) {
       this.addCard(event.clientX, event.clientY);
     },
     addCard(x,y) {
-      let id = Math.max(...app.cards.map(x => x.id)) + 1;
+      let id = Math.max(...this.$refs.card.map(x => x.getData().id)) + 1;
       this.cards.push({
         id: id,
         x: x - 200/2 + document.body.scrollLeft,
@@ -60,15 +60,6 @@ var app = Vue.createApp({
         x.target.setZ(i);
       });
     },
-    // dragScrollStart(event) {
-    //   this.dragScrolling = true;
-    // },
-    // dragScrollEnd(event) {
-    //   this.dragScrolling = false;
-    //   if(event.button === 2) {
-    //     event.preventDefault();
-    //   }
-    // },
     calcScreenSize() {
       var width = 0;
       var height = 0;

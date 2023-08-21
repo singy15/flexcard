@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "browser-sync start --server --files *"
+    "server": "browser-sync start --server --files * src/* css/* lib/*"
   },
   "author": "",
   "license": "ISC",

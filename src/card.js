@@ -96,6 +96,7 @@ let darkTheme = {
       // backgroundColor: `rgba(${card.color.r},${card.color.g},${card.color.b},1.0)`,
       cursor: `move`,
       zIndex: `${card.info.z}`,
+      fontSize: '10px',
     };
   },
   styleTextarea(card) {
@@ -183,7 +184,8 @@ let darkTheme = {
 
 let Card = {
   props: {
-    initInfo: Object
+    initInfo: Object,
+    debug: Boolean
   },
   data() {
     let data = mergeDeeply(
@@ -204,7 +206,6 @@ let Card = {
         menuTimeout: null,
         // styler: defaultTheme,
         styler: darkTheme,
-        debug: true,
       },
       { info: JSON.parse(JSON.stringify(this.initInfo)) }
     );
@@ -396,6 +397,16 @@ let Card = {
   template: 
 `
 <div v-bind:style="styler.style(this)" class="card" draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event)" ref="card">
+
+<div v-if="debug" :style="{ 
+      position: 'absolute', 
+      top: '0' + 'px',
+      left: '0' + 'px', 
+      color: '#fff',
+      zIndex: 9999,
+      fontSize: '9px',
+    }">{{ JSON.stringify(info) }}</div>
+
 <div :style="styler.styleMenu(this)" v-show="!dragState" ref="menu" class="fadeInit" @mouseout="mouseout($event)" @mouseover="mouseover($event)">
   <div class="menu-btn">
     <span :style="styler.styleMenuIcon(this, { bottom: '2px'})">
