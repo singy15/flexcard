@@ -184,33 +184,27 @@ let darkTheme = {
 
 let Card = {
   props: {
-    initInfo: Object,
+    data: Object,
     debug: Boolean
   },
   data() {
-    let data = mergeDeeply(
-      {
-        info: {
-          x: 100,
-          y: 100,
-          w: 180,
-          h: 100,
-          color: { r:255, g:255, b:255 },
-          textColor: { r:0, g:0, b:0  },
-          text: "",
-          z: 1,
-          softwareVersion: 2
-        },
-        dragState: null,
-        focused: false,
-        menuTimeout: null,
-        // styler: defaultTheme,
-        styler: darkTheme,
+    return {
+      dragState: null,
+      focused: false,
+      menuTimeout: null,
+      // styler: defaultTheme,
+      styler: darkTheme,
+    };
+  },
+  computed: {
+    info: {
+      get: function() {
+        return this.data;
       },
-      { info: JSON.parse(JSON.stringify(this.initInfo)) }
-    );
-
-    return data;
+      set: function(value) {
+        this.$emit('update:data', value);
+      }
+    }
   },
   methods: {
     validation() {
@@ -376,8 +370,6 @@ let Card = {
     "info.text": function(val){
       this.changed();
     }
-  },
-  computed: {
   },
   mounted() {
     let resizeTimeout = null;

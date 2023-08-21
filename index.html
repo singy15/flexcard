@@ -18,8 +18,8 @@
           }"
           @mousemove="dragScroll($event)"
           @contextmenu.prevent>
-        <card v-for="card in cards" :key="card" :init-info="card" 
-            @updated="cardUpdated"
+        <!-- @updated="cardUpdated" -->
+        <card v-for="card in cards" :key="card" :data.sync="card"
             @deleted="cardDeleted"
             @movez="movez"
             ref="card"></card>
