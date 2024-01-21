@@ -33,7 +33,7 @@
       -->
       <div style="position:fixed; top:5px; bottom:5px; left:5px; background-color:#000; color:#FFF; border:solid 1px #CCC; font-family:system;
         width:calc(25%); max-width:250px; overflow-x:hidden; overflow-y:auto; opacity:0.7;">
-        <div v-for="card in sorted" style="font-size:0.75rem; padding:1px; cursor:pointer;" @click="scrollToCard(card)">
+        <div v-for="card in sorted" style="font-size:0.75rem; padding:1px; cursor:pointer; white-space:nowrap;" @click="scrollToCard(card)">
           {{card.text.split("\n")[0]}}
         </div>
       </div>
