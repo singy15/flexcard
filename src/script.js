@@ -123,6 +123,15 @@ var app = Vue.createApp({
         h: height + 1000,
       };
     },
+    scrollToCard(card) {
+      document.body.scrollLeft = card.x - (window.innerWidth / 2) + (card.w / 2);
+      document.body.scrollTop = card.y - (window.innerHeight / 2) + (card.h / 2);
+    }
+  },
+  computed: {
+    sorted() {
+      return this.cards.map(x => x).sort(x => x.id);
+    }
   },
   mounted() {
     if(localStorage.getItem("/cards")) {
