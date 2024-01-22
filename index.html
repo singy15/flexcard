@@ -31,11 +31,21 @@
       </button>
       <br/>
       -->
-      <div style="position:fixed; top:5px; bottom:5px; left:5px; background-color:#000; color:#FFF; border:solid 1px #CCC; font-family:system;
-        width:calc(25%); max-width:250px; overflow-x:hidden; overflow-y:auto; opacity:0.7;">
-        <div v-for="card in sorted" style="font-size:0.75rem; padding:1px; cursor:pointer; white-space:nowrap;" @click="scrollToCard(card)">
-          {{card.text.split("\n")[0]}}
+      <div v-if="enableList" style="position:fixed; top:0px; bottom:0px; left:0px; background-color:#000; color:#FFF; border:solid 1px #CCC; font-family:system;
+        width:calc(25%); max-width:250px; overflow-x:hidden; overflow-y:auto; z-index:9999;">
+        <div style="position:sticky; top:0px; background-color:#000;">
+          <div @click="enableList = !enableList" style="cursor:pointer; font-size:0.8em; width:100%; text-align:center;">&lt;&lt;&lt;</div>
+          <div style="font-size:0.8em; width:100%; text-align:center; box-sizing:border-box; padding:5px 5px;">
+            <input style="color:#FFF; background-color:#000; border:solid 1px #CCC; outline:none; width:100%;" v-model="searchKeyword"/>
+          </div>
         </div>
+        <div v-for="card in listItem" style="font-size:0.75rem; padding-left:10px; cursor:pointer; white-space:nowrap;" @click="scrollToCard(card)">
+          - {{card.text.split("\n")[0]}}
+        </div>
+      </div>
+      <div v-else style="position:fixed; top:0px; bottom:0px; left:0px; background-color:#000; color:#FFF; border:solid 1px #CCC; font-family:system;
+        width:20px; overflow-x:hidden; overflow-y:auto; z-index:9999; cursor:pointer;" @click="enableList = !enableList">
+        <div style="font-size:0.8em; width:100%; text-align:center;">&gt;</div>
       </div>
     </div>
   </body>

@@ -28,7 +28,9 @@ var app = Vue.createApp({
         }
       ],
       debug: true,
-      saveTimeout: null
+      saveTimeout: null,
+      enableList: false,
+      searchKeyword: ""
     };
   },
   watch: {
@@ -129,8 +131,13 @@ var app = Vue.createApp({
     }
   },
   computed: {
-    sorted() {
-      return this.cards.map(x => x).sort(x => x.id);
+    listItem() {
+      let ls = this.cards.map(x => x).sort(x => x.id);
+      if(this.searchKeyword !== "") {
+        let regexp = new RegExp(this.searchKeyword);
+        ls = ls.filter(x => x.text.match(regexp));
+      }
+      return ls;
     }
   },
   mounted() {
